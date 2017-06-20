@@ -43,6 +43,15 @@ app.get('/todos/:id', (req,res) => {
 	})
 });
 
+app.delete('/todos/:id', (req,res) => {
+	var id = req.params.id;
+	Todo.findByIdAndRemove(id).then((todo) => {
+		res.send(todo);
+	},(err) => {
+		res.send(err);
+	})
+});
+
 
 
 app.listen(3000, () => {
