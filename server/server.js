@@ -75,12 +75,22 @@ app.patch('todos/:id', (req,res) => {
 });
 
 
+
+// Users funtions are going to be created from here
+// **********************************************************
+// **********************************************************
+// **********************************************************
+
+
+
 app.post('/users',(req,res) => {
 	var body = _.pick(req.body,['name','email','password']);
 	var user = new User(body);
 
 	user.save().then((user) => {
-		res.send(user);
+		return user.generateAuthToken();
+	}).then((token) => {
+		res.header('x-auth',token).send(user);
 	}).catch((err) => {
 		res.send(err);
 	});
