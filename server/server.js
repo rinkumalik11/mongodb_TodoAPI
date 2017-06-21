@@ -72,7 +72,20 @@ app.patch('todos/:id', (req,res) => {
 	},(err) => {
 		res.send(err);
 	})
-})
+});
+
+
+app.post('/users',(req,res) => {
+	var body = _.pick(req.body,['name','email','password']);
+	var user = new User(body);
+
+	user.save().then((user) => {
+		res.send(user);
+	}).catch((err) => {
+		res.send(err);
+	});
+
+});
 
 
 
